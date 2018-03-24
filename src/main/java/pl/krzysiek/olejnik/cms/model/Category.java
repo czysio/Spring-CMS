@@ -21,13 +21,12 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column(length = 100)
 	@CategoryNameMinLength
 	private String name;
 	@Column(columnDefinition = "TEXT")
 	private String description;
-    @ManyToMany(mappedBy = "categories", fetch = FetchType.EAGER)
-    private List<Article> articles = new ArrayList<>();
+	@ManyToMany(mappedBy = "categories", fetch = FetchType.EAGER)
+	private List<Article> articles = new ArrayList<>();
 
 	public Category() {
 		super();
@@ -57,11 +56,6 @@ public class Category {
 		this.description = description;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("%s",name);
-	}
-
 	public List<Article> getArticles() {
 		return articles;
 	}
@@ -69,5 +63,10 @@ public class Category {
 	public void setArticles(List<Article> articles) {
 		this.articles = articles;
 	}
-	
+
+	@Override
+	public String toString() {
+		return String.format("%s", name);
+	}
+
 }

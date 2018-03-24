@@ -1,6 +1,8 @@
 package pl.krzysiek.olejnik.cms.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.Validator;
@@ -35,34 +37,35 @@ public class ArticleController {
 	@Autowired
 	Validator validator;
 	
-	private static final String ARTICLESFORM = "articlesForm";
+	private static final String ARTICLEFORM = "/form/article";
+	private static final String ARTICLELISTREDIRECT = "redirect:/article/all";
 
 	@GetMapping("/create")
 	public String createArticle(Model model) {
 		model.addAttribute("article", new Article());
-		return ARTICLESFORM;
+		return ARTICLEFORM;
 	}
 
 	@PostMapping("/create")
 	public String postCreateArticle(@Valid Article article, BindingResult result) {
 		if (result.hasErrors()) {
-			return ARTICLESFORM;
+			return ARTICLEFORM;
 		} else {
 			articleRepository.save(article);
-			return "redirect:/article/all";
+			return ARTICLELISTREDIRECT;
 		}
 	}
 
 	@GetMapping("/delete/{id}")
 	public String deleteArticle(@PathVariable long id, Model model) {
 		articleRepository.deleteById(id);
-		return "redirect: article/all";
+		return ARTICLELISTREDIRECT;
 	}
 
 	@GetMapping("/update/{id}")
 	public String updateArticle(@PathVariable long id, Model model) {
 		model.addAttribute("article", articleRepository.findOneById(id));
-		return ARTICLESFORM;
+		return ARTICLEFORM;
 	}
 
 	@PostMapping("/update/{id}")
@@ -71,18 +74,18 @@ public class ArticleController {
 			return "/update/{id}";
 		} else {
 			articleRepository.save(article);
-			return "redirect: article/all";
+			return ARTICLELISTREDIRECT;
 		}
 	}
 
 	@GetMapping("/all")
 	public String allArticles(Model model) {
 		model.addAttribute("articles", articleRepository.findAll());
-		return "articlesList";
+		return "/list/articles";
 	}
 
 	@ModelAttribute("authors")
-	public Collection<Author> authors() {
+	public List<Author> authors() {
 		return authorRepository.findAll();
 	}
 

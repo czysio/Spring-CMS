@@ -5,7 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+
+import pl.krzysiek.olejnik.cms.validator.AuthorName;
 
 @Entity
 @Table(name = "author")
@@ -14,9 +15,9 @@ public class Author {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@NotBlank
+	@AuthorName
     private String firstName;
-	@NotBlank
+	@AuthorName
     private String lastName;
 	
     public Author() {
@@ -38,7 +39,7 @@ public class Author {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
+	
 	public String getLastName() {
 		return lastName;
 	}

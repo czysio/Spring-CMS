@@ -8,13 +8,13 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-
-@Constraint(validatedBy = CategoryNameMinLengthValidator.class)
+@Constraint(validatedBy = AuthorNameValidator.class)
 @Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CategoryNameMinLength {
+public @interface AuthorName {
 
-	String message() default "Category name should contain at least 1 character";
+	String message() default "Name should start with capital letter and be longer than 2 characters";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
+	
 }

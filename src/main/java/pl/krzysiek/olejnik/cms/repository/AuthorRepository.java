@@ -6,6 +6,6 @@ import pl.krzysiek.olejnik.cms.model.Author;
 
 public interface AuthorRepository extends JpaRepository<Author, Long>{
 
-	Author findOneById(long id);
+	Author findOneById(Long id);
 
 }

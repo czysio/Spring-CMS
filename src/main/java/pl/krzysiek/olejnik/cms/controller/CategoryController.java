@@ -26,62 +26,59 @@ public class CategoryController {
 	ArticleRepository articleRepository;
 	@Autowired
 	Validator validator;
+	
+	private static final String CATEGORYFORM = "/form/category";
+	private static final String CATEGORYLISTREDIRECT = "redirect:/category/all";
 
 	@GetMapping("/create")
 	public String createCategory(Model model) {
 		model.addAttribute("category", new Category());
-		return "categoriesForm";
+		return CATEGORYFORM;
 	}
 
 	@PostMapping("/create")
 	public String postCreateCategory(@Valid Category category, BindingResult result) {
 		if (result.hasErrors()) {
-			return "categoriesForm";
+			return CATEGORYFORM;
 		} else {
 			categoryRepository.save(category);
-			return "redirect:/category/all";
+			return CATEGORYLISTREDIRECT;
 		}
 	}
 
 	@GetMapping("/delete/{id}")
 	public String deleteCategory(@PathVariable long id, Model model) {
 		categoryRepository.deleteById(id);
-		return "redirect: /SpringCMS/category/all";
-	}
-
-	@GetMapping("/find/{id}")
-	public String findCategoryById(@PathVariable long id, Model model) {
-		model.addAttribute("categories", categoryRepository.findOneById(id));
-		return "categoriesList";
+		return CATEGORYLISTREDIRECT;
 	}
 
 	@GetMapping("/update/{id}")
 	public String updateCategory(@PathVariable long id, Model model) {
 		model.addAttribute("category", categoryRepository.findOneById(id));
-		return "categoriesForm";
+		return CATEGORYFORM;
 	}
 
 	@PostMapping("/update/{id}")
 	public String postUpdateCategory(@Valid Category category, BindingResult result) {
 		if (result.hasErrors()) {
-			return "categoriesForm";
+			return CATEGORYFORM;
 		} else {
 			categoryRepository.save(category);
-			return "redirect: /SpringCMS/category/all";
+			return CATEGORYLISTREDIRECT;
 		}
 	}
 
 	@GetMapping("/all")
 	public String allCategories(Model model) {
 		model.addAttribute("categories", categoryRepository.findAll());
-		return "categoriesList";
+		return "/list/categories";
 	}
 
 	@GetMapping("/allarticles/{id}")
 	public String allArticlesFromCategory(@PathVariable long id, Model model) {
-		model.addAttribute("articlesincategory", articleRepository.findAllByCategoriesId(id));
+		model.addAttribute("articlesincategory", articleRepository.findAllArticlesByCategoriesId(id));
 		model.addAttribute("category", categoryRepository.findOneById(id));
-		return "categoryArticles";
+		return "/list/articlesbycategory";
 	}
 
 }

@@ -13,9 +13,9 @@ public class HomePageController {
 	@Autowired
 	ArticleRepository articleRepository;
 	
-	@RequestMapping("")
+	@RequestMapping("/")
 	public String fiveLeatestArticles(Model model) {
-//		model.addAttribute("article", articleRepository.findFiveByCreated());
+		model.addAttribute("articles", articleRepository.findFiveNewestArticles());
 		return "homepage";
 	}
 	

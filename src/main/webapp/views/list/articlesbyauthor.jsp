@@ -12,23 +12,30 @@
 </head>
 <body>
 	<jsp:include page="/views/header.jsp" />
-	
 	<div class="container">
-		<h1>Latest articles:</h1>
-		<table class="table table-secondary">
+		<h1>${author}articles:</h1>
+		<table class="table">
 			<thead class="thead-light">
 				<tr>
-					<td>Title</td>
-					<td>Author</td>
-					<td>Content</td>
+					<th>Article Title</th>
+					<th>Content</th>
+					<th>Created</th>
+					<th>Updated</th>
+					<th>Action</th>
 				</tr>
 			</thead>
-			<tbody class="table table-hover">
-				<c:forEach items="${articles}" var="article">
+			<tbody class="table-hover">
+				<c:forEach items="${authorarticles}" var="authorarticle">
 					<tr>
-						<td>${article.title}</td>
-						<td>${article.author}</td>
-						<td>${article.content}</td>
+						<td>${authorarticle.title}</td>
+						<td white-space="nowrap" overflow"hidden" text-overflow="ellipsis"
+							max-width=".5">${authorarticle.content}</td>
+						<td>${authorarticle.created}</td>
+						<td>${authorarticle.updated}</td>
+						<td>
+								<a class="btn btn-warning" href="<c:url value='/article/update/${article.id}'/>">Modify</a>
+								<a class="btn btn-danger" href="<c:url value='/article/delete/${article.id}'/>">Delete</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

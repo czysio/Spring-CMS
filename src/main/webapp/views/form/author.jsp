@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,25 +14,35 @@
 	<jsp:include page="/views/header.jsp" />
 	
 	<div class="container">
-		<h1>Latest articles:</h1>
-		<table class="table table-secondary">
-			<thead class="thead-light">
-				<tr>
-					<td>Title</td>
-					<td>Author</td>
-					<td>Content</td>
-				</tr>
-			</thead>
-			<tbody class="table table-hover">
-				<c:forEach items="${articles}" var="article">
-					<tr>
-						<td>${article.title}</td>
-						<td>${article.author}</td>
-						<td>${article.content}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+
+		<form:form modelAttribute="author" method="POST" class="form-horizontal">
+			<fieldset>
+				<legend>Add new author:</legend>
+
+				<div class="form-group">
+					<label>First name: </label>
+					<div class="col-md-4">
+						<form:input path="firstName" placeholder="Author first name" />
+					</div>
+					<div class="col-md-4">
+						<form:errors path="firstName" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>Last name: </label>
+					<div class="col-md-4">
+						<form:input path="lastName" placeholder="Author last name" />
+					</div>
+					<div class="col-md-4">
+						<form:errors path="lastName" />
+					</div>
+				</div>
+				
+				<input class="btn btn-secondary" type="submit" value="accept" />
+
+			</fieldset>
+		</form:form>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

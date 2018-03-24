@@ -11,7 +11,7 @@ public class CategoryNameMinLengthValidator implements ConstraintValidator<Categ
 	
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return value.length() >= 5;
+        return value.length() > 0;
     }
 	
 }

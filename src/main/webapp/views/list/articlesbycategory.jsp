@@ -12,23 +12,33 @@
 </head>
 <body>
 	<jsp:include page="/views/header.jsp" />
-	
 	<div class="container">
-		<h1>Latest articles:</h1>
-		<table class="table table-secondary">
+		<h1>Articles in ${category} category:</h1>
+		<table class="table">
 			<thead class="thead-light">
 				<tr>
-					<td>Title</td>
-					<td>Author</td>
-					<td>Content</td>
+					<th>Article Title</th>
+					<th>Author</th>
+					<th>Content</th>
+					<th>Created</th>
+					<th>Updated</th>
+					<th>Action</th>
 				</tr>
 			</thead>
-			<tbody class="table table-hover">
-				<c:forEach items="${articles}" var="article">
+			<tbody class="table-hover">
+				<c:forEach items="${articlesincategory}" var="article">
 					<tr>
 						<td>${article.title}</td>
 						<td>${article.author}</td>
 						<td>${article.content}</td>
+						<td>${article.created}</td>
+						<td>${article.updated}</td>
+						<td>
+								<a class="btn btn-warning"
+									href="<c:url value='/article/update/${article.id}'/>">Modify</a>
+								<a class="btn btn-primary"
+									href="<c:url value='/article/delete/${article.id}'/>">Delete</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

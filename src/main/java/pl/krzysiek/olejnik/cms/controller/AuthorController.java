@@ -26,62 +26,59 @@ public class AuthorController {
 	ArticleRepository articleRepository;
 	@Autowired
 	Validator validator;
+	
+	private static final String AUTHORFORM = "/form/author";
+	private static final String AUTHORLISTREDIRECT = "redirect:/author/all";
 
 	@GetMapping("/create")
 	public String createAuthor(Model model) {
 		model.addAttribute("author", new Author());
-		return "authorsForm";
+		return AUTHORFORM;
 	}
 
 	@PostMapping("/create")
 	public String postCreateAuthor(@Valid Author author, BindingResult result) {
 		if (result.hasErrors()) {
-			return "authorsForm";
+			return AUTHORFORM;
 		} else {
 			authorRepository.save(author);
-			return "redirect:/author/all";
+			return AUTHORLISTREDIRECT;
 		}
 	}
 
 	@GetMapping("/delete/{id}")
 	public String deleteAuthor(@PathVariable long id, Model model) {
 		authorRepository.deleteById(id);
-		return "redirect: /SpringCMS/author/all";
-	}
-
-	@GetMapping("/find/{id}")
-	public String findAuthorById(@PathVariable long id, Model model) {
-		model.addAttribute("author", authorRepository.findOneById(id));
-		return "authorsList";
+		return AUTHORLISTREDIRECT;
 	}
 
 	@GetMapping("/update/{id}")
 	public String updateAuthor(@PathVariable long id, Model model) {
 		model.addAttribute("author", authorRepository.findOneById(id));
-		return "authorsForm";
+		return AUTHORFORM;
 	}
 
 	@PostMapping("/update/{id}")
 	public String postUpdateAuthor(@Valid Author author, BindingResult result) {
 		if (result.hasErrors()) {
-			return "authorsForm";
+			return AUTHORFORM;
 		} else {
 			authorRepository.save(author);
-			return "redirect: /SpringCMS/author/all";
+			return AUTHORLISTREDIRECT;
 		}	
 	}
 
 	@GetMapping("/all")
 	public String allAuthors(Model model) {
 		model.addAttribute("authors", authorRepository.findAll());
-		return "authorsList";
+		return "/list/authors";
 	}
 
 	@GetMapping("/allarticles/{id}")
 	public String allAuthorArticles(@PathVariable long id, Model model) {
-		model.addAttribute("authorarticles", articleRepository.findAllByAuthorId(id));
+		model.addAttribute("authorarticles", articleRepository.findAllArticlesByAuthorId(id));
 		model.addAttribute("author", authorRepository.findOneById(id));
-		return "authorArticles";
+		return "/list/articlesbyauthor";
 	}
 
 }

@@ -12,15 +12,17 @@
 </head>
 <body>
 	<jsp:include page="/views/header.jsp" />
-	
 	<div class="container">
-		<h1>Latest articles:</h1>
-		<table class="table table-secondary">
+		<h1>Articles list:</h1>
+		<table class="table">
 			<thead class="thead-light">
 				<tr>
-					<td>Title</td>
-					<td>Author</td>
-					<td>Content</td>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Categories</th>
+					<th>Created</th>
+					<th>Updated</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody class="table table-hover">
@@ -28,7 +30,13 @@
 					<tr>
 						<td>${article.title}</td>
 						<td>${article.author}</td>
-						<td>${article.content}</td>
+						<td>${article.categories}</td>
+						<td>${article.created}</td>
+						<td>${article.updated}</td>
+						<td>
+								<a class="btn btn-warning" href="<c:url value='/article/update/${article.id}'/>">Modify</a>
+								<a class="btn btn-danger" href="<c:url value='/article/delete/${article.id}'/>">Delete</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
