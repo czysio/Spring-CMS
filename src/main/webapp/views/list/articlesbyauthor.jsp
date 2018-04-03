@@ -13,7 +13,7 @@
 <body>
 	<jsp:include page="/views/header.jsp" />
 	<div class="container">
-		<h1>${author}articles:</h1>
+		<h1>${author} articles:</h1>
 		<table class="table">
 			<thead class="thead-light">
 				<tr>
