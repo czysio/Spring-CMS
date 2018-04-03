@@ -12,7 +12,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long>{
 	List<Article> findAllArticlesByCategoriesId(long id);
 	List<Article> findAllArticlesByAuthorId(long id);
 	Article findOneById(long id);
-	@Query("SELECT article FROM Article article ORDER BY created DESC LIMIT 5")
+	@Query(value = "SELECT * FROM article ORDER BY created LIMIT 5", nativeQuery = true)
 	List<Article> findFiveNewestArticles();
 	
 }
